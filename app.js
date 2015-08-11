@@ -4,9 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var config = require('./config'); // get our config file
 
-var routes = require('./routes');
+var routes = require('./routes'); //all our routes go into this file
 
 var app = express();
 
