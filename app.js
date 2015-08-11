@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 
 var bodyParser = require('body-parser');
-var mongoose    = require('mongoose');
+var mongoose = require('mongoose');
 
 var config = require('./config'); // get our config file
 
