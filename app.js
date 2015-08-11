@@ -4,12 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 
 var bodyParser = require('body-parser');
+var mongoose    = require('mongoose');
 
 var config = require('./config'); // get our config file
 
 var routes = require('./routes'); //all our routes go into this file
 
 var app = express();
+
+mongoose.connect(config.database); // connect to database
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,7 +27,6 @@ app.all('/*', function(req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     // Set custom headers for CORS
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
-    
     if (req.method == 'OPTIONS') {
         res.status(200).end();
     } else {
@@ -32,12 +34,18 @@ app.all('/*', function(req, res, next) {
     }
 });
 
+// Auth Middleware - This will check if the token is valid
+// Only the requests that start with /api/* will be checked for the token.
+// Any URL's that do not follow the below pattern should be avoided unless you 
+// are sure that authentication is not needed
+app.all('/api/*', [require('./middlewares/validateRequest')]);
+
 app.use('/api', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.status = 404;
-  res.send({ code:404,message: 'Not found'});
+  res.send({ status:404,message: 'Not found'});
   next(res);
 });
 
