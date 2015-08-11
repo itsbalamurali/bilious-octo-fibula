@@ -10,4 +10,18 @@ router.get('/', function(req, res, next) {
                });   
 });
 
+//Files routes
+router.post('/files/:name', function(req, res) {
+    res.json({ 
+          url: 'here goes aws s3 file url',
+          name: req.params.name
+          });
+  });
+
+router.delete('/files/:name',function(req,res){
+  res.json({
+    status: 200,
+    message: 'file deleted'
+  })
+});
 module.exports = router;
