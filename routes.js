@@ -7,7 +7,6 @@ var users = require('./controllers/UsersController.js');
 var posts = require('./controllers/PostsController.js');
 var postcomments = require('./controllers/PostCommentsController.js');
 var anonymousposts = require('./controllers/AnonymousPostsController.js');
-var anonymouspostcomments = require('./controllers/AnonymousPostCommentsController.js');
 var newsfeed = require('./controllers/NewsfeedController.js');
 var notifications = require('./controllers/NotificationsController.js');
 
@@ -79,6 +78,12 @@ router.get('/notifications/:id', notifications.getOne);
 //router.put('/notifications/:id', notifications.update);
 //router.delete('/notifications/:id', notifications.delete);
 
+/*
+ * Anonymous Posts Routes
+ */
+router.get('/anonymousposts', anonymousposts.getAll);
+router.get('/anonymousposts/:id', anonymousposts.getOne);
+router.post('/anonymousposts/:id/comments', anonymousposts.createComment);
 
 
 //Files routes
