@@ -48,11 +48,7 @@ router.post('/feed', posts.create);
 router.get('/feed', newsfeed.getFeed);
 router.get('/feed/:id', posts.getOne);
 router.get('/feed/:id/likes', posts.getLikes);
-/// implementation todo
-router.get('/feed/:id/likepost', posts.likePost);
-router.get('/feed/:id/unlikepost', posts.unlikePost);
-///
-
+router.post('/feed/:id/like', posts.likePost); //represented with 1,0,-1
 router.get('/feed/:id/comments', postcomments.getAll);
 router.post('/feed/:id/comments', postcomments.create);
 router.get('/feed/:id/comments/:id', postcomments.getOne);
@@ -83,8 +79,12 @@ router.get('/notifications/:id', notifications.getOne);
  */
 router.get('/anonymousposts', anonymousposts.getAll);
 router.get('/anonymousposts/:id', anonymousposts.getOne);
+router.post('/anonymousposts/:id/vote', anonymousposts.vote); // represented with 1,0,-1
+router.put('/anonymousposts/:id/vote', anonymousposts.vote); // represented with 1,0,-1
 router.post('/anonymousposts/:id/comments', anonymousposts.createComment);
-
+router.post('/anonymousposts/:id/comments/:id/vote', anonymousposts.voteComment);
+router.delete('/anonymousposts/:id/comments/:id', anonymousposts.deleteComment);
+router.delete('/anonymousposts/:id', anonymousposts.delete);
 
 //Files routes
 router.post('/files/:name',files.upload);
