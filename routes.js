@@ -33,6 +33,9 @@ router.post('/users', users.create);
 router.get('/users/:id', users.getOne);
 router.get('/users', users.getAll);
 router.post('/users/me', users.authenticatedUser);
+router.get('/users/settings', users.getSettings);
+router.put('/users/settings', users.updateSettings);
+
 
 /*
  * Installations routes
@@ -42,6 +45,7 @@ router.get('/installations', installations.getAll);
 router.get('/installations/:id', installations.getOne);
 router.put('/installations/:id', installations.update);
 router.delete('/installations/:id', installations.delete);
+
 
 /*
  * Posts routes
@@ -58,6 +62,7 @@ router.delete('/feed/:id/comments/:id', postcomments.delete);
 router.put('/feed/:id', posts.update);
 router.delete('/feed/:id', posts.delete);
 
+
 /*
  * Installations routes
  */
@@ -67,19 +72,23 @@ router.get('/installations/:id', installations.getOne);
 router.put('/installations/:id', installations.update);
 router.delete('/installations/:id', installations.delete);
   
+
 /*
  * Notification routes
  */
 //router.post('/notifications', notifications.create);
 router.get('/notifications', notifications.getAll);
 router.get('/notifications/:id', notifications.getOne);
+router.post('/notifications/:id', notifications.update); //mark as read
+
 //router.put('/notifications/:id', notifications.update);
 //router.delete('/notifications/:id', notifications.delete);
 
 /*
  * Anonymous Posts Routes
  */
-router.get('/anonymousposts', anonymousposts.getAll);
+router.get('/anonymousposts', anonymousposts.getLatest); //latest posts
+router.get('/anonymousposts/hot', anonymousposts.getHottest); //latest posts
 router.get('/anonymousposts/:id', anonymousposts.getOne);
 router.post('/anonymousposts/:id/vote', anonymousposts.vote); // represented with 1,0,-1
 router.put('/anonymousposts/:id/vote', anonymousposts.vote); // represented with 1,0,-1
