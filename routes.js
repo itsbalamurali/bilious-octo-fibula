@@ -9,7 +9,9 @@ var postcomments = require('./controllers/PostCommentsController.js');
 var anonymousposts = require('./controllers/AnonymousPostsController.js');
 var newsfeed = require('./controllers/NewsfeedController.js');
 var notifications = require('./controllers/NotificationsController.js');
-
+var appsconfig = require('./lib/appsconfig.js');
+var events = require('./controllers/EventsController.js');
+var offers = require('./controllers/OffersController.js');
 var router = express.Router();
 
 /* GET home page. */
@@ -89,5 +91,8 @@ router.delete('/anonymousposts/:id', anonymousposts.delete);
 //Files routes
 router.post('/files/:name',files.upload);
 router.delete('/files/:name',files.delete);
+
+//App Config routes
+router.get('/appconfig',appsconfig.getCurrentConfig);
 
 module.exports = router;
