@@ -9,6 +9,8 @@ var postcomments = require('./controllers/PostCommentsController.js');
 var anonymousposts = require('./controllers/AnonymousPostsController.js');
 var anonymouspostcomments = require('./controllers/AnonymousPostCommentsController.js');
 var newsfeed = require('./controllers/NewsfeedController.js');
+var notifications = require('./controllers/NotificationsController.js');
+
 var router = express.Router();
 
 /* GET home page. */
@@ -46,6 +48,16 @@ router.delete('/installations/:id', installations.delete);
 router.post('/feed', posts.create);
 router.get('/feed', newsfeed.getFeed);
 router.get('/feed/:id', posts.getOne);
+router.get('/feed/:id/likes', posts.getLikes);
+/// implementation todo
+router.get('/feed/:id/likepost', posts.likePost);
+router.get('/feed/:id/unlikepost', posts.unlikePost);
+///
+
+router.get('/feed/:id/comments', postcomments.getAll);
+router.post('/feed/:id/comments', postcomments.create);
+router.get('/feed/:id/comments/:id', postcomments.getOne);
+router.delete('/feed/:id/comments/:id', postcomments.delete);
 router.put('/feed/:id', posts.update);
 router.delete('/feed/:id', posts.delete);
 
@@ -58,6 +70,16 @@ router.get('/installations/:id', installations.getOne);
 router.put('/installations/:id', installations.update);
 router.delete('/installations/:id', installations.delete);
   
+/*
+ * Notification routes
+ */
+//router.post('/notifications', notifications.create);
+router.get('/notifications', notifications.getAll);
+router.get('/notifications/:id', notifications.getOne);
+//router.put('/notifications/:id', notifications.update);
+//router.delete('/notifications/:id', notifications.delete);
+
+
 
 //Files routes
 router.post('/files/:name',files.upload);
