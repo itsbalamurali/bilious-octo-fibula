@@ -1,0 +1,14 @@
+{
+	  "id": "installation id",
+	  "badge": "badge",
+	  "channels": "channels",
+	  "time_zone": "timeZone",
+	  "device_type": "deviceType",
+	  "push_type": "pushType",
+	  "gcm_sender_id": "GCMSenderId",
+	  "device_token": "deviceToken",
+	  "channel_uris": "channelUris",
+	  "app_name": "appName",
+	  "app_version": "appVersion",
+	  "app_identifier": "appIdentifier"
+}
