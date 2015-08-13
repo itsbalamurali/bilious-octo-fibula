@@ -1,5 +1,4 @@
 var bcrypt = require('bcrypt-nodejs');
-var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
@@ -9,7 +8,6 @@ var userSchema = new mongoose.Schema({
   facebook: String,
   twitter: String,
   google: String,
-  github: String,
   instagram: String,
   linkedin: String,
   tokens: Array,

@@ -55,10 +55,10 @@ router.get('/feed', newsfeed.getFeed);
 router.get('/feed/:id', posts.getOne);
 router.get('/feed/:id/likes', posts.getLikes);
 router.post('/feed/:id/like', posts.likePost); //represented with 1,0,-1
-router.get('/feed/:id/comments', postcomments.getAll);
-router.post('/feed/:id/comments', postcomments.create);
-router.get('/feed/:id/comments/:id', postcomments.getOne);
-router.delete('/feed/:id/comments/:id', postcomments.delete);
+router.get('/feed/:id/comments', posts.getAllcomments);
+router.post('/feed/:id/comments', posts.createComment);
+router.get('/feed/:id/comments/:id', posts.getComment);
+router.delete('/feed/:id/comments/:id', posts.deleteComment);
 router.put('/feed/:id', posts.update);
 router.delete('/feed/:id', posts.delete);
 
