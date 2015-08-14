@@ -5,7 +5,6 @@ var files = require('./controllers/FilesController.js');
 var installations = require('./controllers/InstallationsController.js');
 var users = require('./controllers/UsersController.js');
 var posts = require('./controllers/PostsController.js');
-var postcomments = require('./controllers/PostCommentsController.js');
 var anonymousposts = require('./controllers/AnonymousPostsController.js');
 var newsfeed = require('./controllers/NewsfeedController.js');
 var notifications = require('./controllers/NotificationsController.js');
