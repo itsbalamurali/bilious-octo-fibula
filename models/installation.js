@@ -2,6 +2,17 @@ var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
 
 var installationSchema = new mongoose.Schema({
+	badge: String, // Check: What is this?
+	channels: [String], // Check: ?
+	time_zone: String, // Check: Again.
+	device_type: String,
+	push_type: String,
+	gcm_sender_id: String,
+	device_token: String,
+	channel_uris: String,
+	app_name: String,
+	app_version: String,
+	app_identifier: String
 });
 
 
