@@ -1,27 +1,26 @@
 {
-   "description": "",
-   "name": "Free Summer IoT Workshop",
-   "cover":{
-	   "source": ""
-   },
-   "owner":"",
-   "timezone":"event time zone",
-   "place": {
-      "name": "LaMakaan",
-      "location": {
-         "city": "Hyderabad",
-         "country": "India",
-         "latitude": 17.421033666284,
-         "longitude": 78.447375269039,
-         "street": "Banjara Hills",
-         "zip": "500034"
-      },
-      "id": "186362638071508"
-   },
-   "ticket_uri":"",
-   "start_time": "2015-05-30T10:30:00+0530",
-   "end_time": "",
-   "ticket_uri":"",
-   "is_date_only": false,
-   "id": "1570618833203000"
+  "description": "",
+  "name": "Free Summer IoT Workshop",
+  "cover": {
+    "source": ""
+  },
+  "owner": "",
+  "timezone": "event time zone",
+  "place": {
+    "name": "LaMakaan",
+    "location": {
+      "city": "Hyderabad",
+      "country": "India",
+      "latitude": 17.421033666284,
+      "longitude": 78.447375269039,
+      "street": "Banjara Hills",
+      "zip": "500034"
+    },
+    "id": "186362638071508"
+  },
+  "ticket_uri": "",
+  "start_time": "2015-05-30T10:30:00+0530",
+  "end_time": "",
+  "is_date_only": false,
+  "id": "1570618833203000"
 }
