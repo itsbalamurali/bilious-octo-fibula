@@ -22,7 +22,6 @@ exports.create = function(req, res) {
         });
    }
   });
-
 };
 
 //update user
