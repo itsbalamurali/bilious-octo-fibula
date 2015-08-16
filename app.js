@@ -18,8 +18,8 @@ mongoose.connect(config.database); // connect to database
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 app.all('/*', function(req, res, next) {
     // CORS headers
@@ -45,7 +45,7 @@ app.use('/', routes);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.status = 404;
-  res.send({ status:404,message: 'Not found'});
+  res.json({ status:404,message: 'Not found'});
   next(res);
 });
 

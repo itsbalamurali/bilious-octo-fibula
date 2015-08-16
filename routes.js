@@ -30,6 +30,7 @@ router.post('/users/logout', users.logout);
 router.post('/users/reset_password', users.resetPassword);
 router.post('/users', users.create);
 router.get('/users/:id', users.getOne);
+router.put('/users/:id', users.update);
 router.get('/users', users.getAll);
 router.post('/users/me', users.authenticatedUser);
 router.get('/users/settings', users.getSettings);
