@@ -1,4 +1,3 @@
-var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
 
 var notificationSchema = new mongoose.Schema({
