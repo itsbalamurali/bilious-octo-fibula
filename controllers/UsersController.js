@@ -11,7 +11,27 @@ exports.logout = function(req, res) {};
 exports.resetPassword = function(req, res) {};
 
 //create new user
-exports.create = function(req, res) {};
+exports.create = function(req, res) {
+	var user = new User({
+    username: req.body.username,
+    password: req.body.password,
+	  email: req.body.email,
+    name: req.body.name
+  });
+
+  user.save(function(err) {
+    if (err){
+      res.send(err);
+  	}
+	res.header('Status', 201);
+	res.header('Location',user.id);
+    res.json({ 
+		  createdAt: user.createdAt,
+  		objectId: user.id,
+  		sessionToken: ""
+    });
+  });
+};
 
 //get user profile
 exports.getOne = function(req, res) {};

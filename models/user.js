@@ -1,35 +1,24 @@
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
+var timestamps = require('mongoose-timestamp');
 
 var userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  email: { 
-    type: String, 
-    unique: true, 
-    lowercase: true
-  },
-
+  username: { type: String, unique: true, required: true },
+  password: { type: String, required: true},
+  email: { type: String, unique: true, lowercase: true},
+  name: { type: String, default: ''},
+  gender: { type: String, default: '' },
+  picture: { type: String, default: ''},
+  
   facebook: String,
   twitter: String,
   google: String,
   instagram: String,
   linkedin: String,
+  
   tokens: Array,
-
-  profile: {
-    name: { type: String, default: '' },
-    gender: { type: String, default: '' },
-    picture: { type: String, default: '' }
-  },
-
+  
+  
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });
@@ -37,6 +26,8 @@ var userSchema = new mongoose.Schema({
 /**
  * Password hash middleware.
  */
+ 
+// Execute before each user.save() call
 userSchema.pre('save', function(next) {
   var user = this;
   if (!user.isModified('password')) return next();
@@ -69,4 +60,5 @@ userSchema.methods.vanillicon = function() {
   return 'https://vanillicon.com/' + md5 + '_' + 100 + '.png';
 };
 
+userSchema.plugin(timestamps);
 module.exports = mongoose.model('User', userSchema);

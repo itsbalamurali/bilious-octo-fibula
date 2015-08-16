@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var timestamps = require('mongoose-timestamp');
 
 var installationSchema = new mongoose.Schema({
 	badge: String, // Check: What is this?
@@ -14,5 +15,5 @@ var installationSchema = new mongoose.Schema({
 	app_identifier: String
 });
 
-
+installationSchema.plugin(timestamps);
 module.exports = mongoose.model('Installation', installationSchema);

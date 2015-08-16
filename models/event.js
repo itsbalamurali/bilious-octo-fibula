@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var timestamps = require('mongoose-timestamp');
 
 var eventSchema = new mongoose.Schema({
 	description: String,
@@ -32,5 +33,5 @@ var eventSchema = new mongoose.Schema({
 	is_date_only: Boolean // Check: No idea what this is for
 });
 
-
+eventSchema.plugin(timestamps);
 module.exports = mongoose.model('Event', eventSchema);
