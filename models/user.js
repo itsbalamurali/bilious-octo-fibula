@@ -9,7 +9,7 @@ var userSchema = new mongoose.Schema({
   name: { type: String, default: ''},
   gender: { type: String, default: '' },
   picture: { type: String, default: ''},
-  
+  institution: { type: mongoose.Schema.ObjectId, ref: 'Institution' },
   facebook: String,
   twitter: String,
   google: String,
@@ -61,4 +61,7 @@ userSchema.methods.vanillicon = function() {
 };
 
 userSchema.plugin(timestamps);
+userSchema.hasMany('Post');
+userSchema.hasMany('AnonymousPost');
+userSchema.belongsTo('Institution', {through: 'institution'});
 module.exports = mongoose.model('User', userSchema);

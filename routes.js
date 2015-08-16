@@ -88,13 +88,16 @@ router.post('/notifications/:id', notifications.update); //mark as read
  * Anonymous Posts Routes
  */
 router.get('/anonymousposts', anonymousposts.getLatest); //latest posts
+router.post('/anonymousposts', anonymousposts.create); //latest posts
 router.get('/anonymousposts/hot', anonymousposts.getHottest); //latest posts
 router.get('/anonymousposts/:id', anonymousposts.getOne);
-router.post('/anonymousposts/:id/vote', anonymousposts.vote); // represented with 1,0,-1
-router.put('/anonymousposts/:id/vote', anonymousposts.vote); // represented with 1,0,-1
+router.get('/anonymousposts/:id', anonymousposts.reportPost);
+router.get('/anonymousposts/:id/upvote', anonymousposts.upvote); // represented with 1,0,-1
+router.get('/anonymousposts/:id/downvote', anonymousposts.downvote); // represented with 1,0,-1
 router.post('/anonymousposts/:id/comments', anonymousposts.createComment);
-router.post('/anonymousposts/:id/comments/:id/vote', anonymousposts.voteComment);
+router.get('/anonymousposts/:id/comments/:id/upvote', anonymousposts.voteComment);
 router.delete('/anonymousposts/:id/comments/:id', anonymousposts.deleteComment);
+router.get('/anonymousposts/:id/comments/:id', anonymousposts.reportComment);
 router.delete('/anonymousposts/:id', anonymousposts.delete);
 
 //Files routes

@@ -1,6 +1,13 @@
 var AnonymousPost = require('../models/AnonymousPost');
+var AnonymousPostComment = require('../models/AnonymousPostComment');
+
+exports.create = function(req, res) {};
 
 exports.getLatest = function(req, res) {};
+
+exports.reportPost = function(req, res) {};
+
+exports.reportComment = function(req, res) {};
 
 exports.getHottest = function(req, res) {};
 
