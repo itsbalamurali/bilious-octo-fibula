@@ -16,6 +16,7 @@
     "iron_mq": "^0.2.4",
     "jade": "~1.11.0",
     "jwt-simple": "^0.3.0",
+    "mongo-relation": "^0.5.4",
     "mongoose": "^4.1.2",
     "mongoose-plugins-trashable": "^1.1.2",
     "mongoose-timestamp": "^0.4.0",
