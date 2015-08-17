@@ -1,6 +1,7 @@
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
+var jwt = require('jwt-simple');
 
 var userSchema = new mongoose.Schema({
   username: {

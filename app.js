@@ -52,7 +52,7 @@ app.use(function(req, res, next) {
     status: 404,
     message: 'Not found'
   });
-  next(res);
+  // next(res);
 });
 
 // error handlers
