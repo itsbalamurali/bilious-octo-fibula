@@ -84,6 +84,20 @@ userSchema.methods.vanillicon = function() {
   return 'https://vanillicon.com/' + md5 + '_' + 100 + '.png';
 };
 
+userSchema.methods.genToken = function() {
+  var expires = expiresIn(60); // 60 days
+  return jwt.encode({
+    exp: expires,
+    username: this.username
+  }, require('../config').appsecret);
+};
+
+
+function expiresIn(numDays) {
+  var dateObj = new Date();
+  return dateObj.setDate(dateObj.getDate() + numDays);
+}
+
 userSchema.plugin(timestamps);
 //userSchema.hasMany('Post');
 //userSchema.hasMany('AnonymousPost');
