@@ -36,7 +36,6 @@ router.post('/users/me', users.authenticatedUser);
 router.get('/users/settings', users.getSettings);
 router.put('/users/settings', users.updateSettings);
 
-
 /*
  * Installations routes
  */

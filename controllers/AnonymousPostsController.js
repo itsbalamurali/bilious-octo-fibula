@@ -74,7 +74,7 @@ exports.upvote = function(req, res) {
 
 //downvote a post
 exports.downvote = function(req, res) {
-  AnonymousPost.findById(req.params.id, function(err, user) {
+  AnonymousPost.find(req.params.id, function(err, user) {
     if (err){
       res.send(err);
     }else{
