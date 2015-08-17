@@ -2,23 +2,65 @@ var Post = require('../models/Post');
 
 
 //Post functions
-exports.create = function(req, res) {};
+exports.create = function(req, res) {
+  var post = new Post({
+    
+  });  
+  
+  post.save(function(err) {
+    if (err){
+      res.send(err);
+  	} else {
+      res.header('Status', 201);
+      res.header('Location',req.hostname+'/feed/'+post.id);
+      res.json({ 
+          createdAt: post.createdAt,
+          objectId: post.id,
+        });
+   }
+  });
+};
 
-exports.update = function(req, res) {};
+//Update a post
+exports.update = function(req, res) {
+	
+};
 
-exports.delete = function(req, res) {};
+//delete a post
+exports.delete = function(req, res) {
+	
+};
 
-exports.getOne = function(req, res) {};
+//get a post
+exports.getOne = function(req, res) {
+	
+};
 
-exports.getLikes = function(req, res) {};
+//get post likes
+exports.getLikes = function(req, res) {
+	
+};
 
-exports.likePost = function(req, res) {};
+//like a post
+exports.likePost = function(req, res) {
+	
+};
 
 //Comments functions
-exports.getAllcomments = function(req, res) {};
+//get all comments of a post
+exports.getAllcomments = function(req, res) {
+	
+};
 
-exports.createComment = function(req, res) {};
+exports.createComment = function(req, res) {
+	
+};
 
-exports.getComment = function(req, res) {};
+exports.getComment = function(req, res) {
+	
+};
 
-exports.deleteComment = function(req, res) {};
+//delete a comment
+exports.deleteComment = function(req, res) {
+	
+};
