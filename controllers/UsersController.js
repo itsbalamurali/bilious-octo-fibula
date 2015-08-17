@@ -25,14 +25,20 @@ exports.create = function(req, res) {
 };
 
 //update user
-exports.update = function(req, res) {};
+exports.update = function(req, res) {
+  
+};
 
 
 //login user
-exports.login = function(req, res) {};
+exports.login = function(req, res) {
+  
+};
 
 //logout user
-exports.logout = function(req, res) {};
+exports.logout = function(req, res) {
+  
+};
 
 //reset user password
 exports.resetPassword = function(req, res) {
