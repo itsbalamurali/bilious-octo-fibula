@@ -15,10 +15,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-      res.json({ status:200,
-                 message: 'this is end of your limits dude!!!', 
-                 uptime: process.uptime()
-               });   
+  res.json({
+    status: 200,
+    message: 'this is end of your limits dude!!!',
+    uptime: process.uptime()
+  });
 });
 
 
@@ -29,8 +30,8 @@ router.post('/users/login', users.login);
 router.post('/users/logout', users.logout);
 router.post('/users/reset_password', users.resetPassword);
 router.post('/users', users.create);
-router.get('/users/:id', users.getOne);
-router.put('/users/:id', users.update);
+router.get('/users/:username', users.getOne);
+router.put('/users/:username', users.update);
 router.get('/users', users.getAll);
 router.post('/users/me', users.authenticatedUser);
 router.get('/users/settings', users.getSettings);
@@ -71,7 +72,7 @@ router.get('/installations', installations.getAll);
 router.get('/installations/:id', installations.getOne);
 router.put('/installations/:id', installations.update);
 router.delete('/installations/:id', installations.delete);
-  
+
 
 /*
  * Notification routes
@@ -102,10 +103,10 @@ router.post('/anonymousposts/:id/comments/:id', anonymousposts.reportComment);
 router.delete('/anonymousposts/:id', anonymousposts.delete);
 
 //Files routes
-router.post('/files/:name',files.upload);
-router.delete('/files/:name',files.delete);
+router.post('/files/:name', files.upload);
+router.delete('/files/:name', files.delete);
 
 //App Config routes
-router.get('/appconfig',appsconfig.getCurrentConfig);
+router.get('/appconfig', appsconfig.getCurrentConfig);
 
 module.exports = router;
