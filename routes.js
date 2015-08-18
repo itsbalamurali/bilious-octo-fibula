@@ -30,13 +30,12 @@ router.post('/users/login', users.login);
 router.post('/users/logout', users.logout);
 router.post('/users/reset_password', users.resetPassword);
 router.post('/users', users.create);
+router.get('/users/me', users.authenticatedUser);
+router.get('/users/settings', users.getSettings);
+router.put('/users/settings', users.updateSettings);
 router.get('/users/:username', users.getOne);
 router.put('/users/:username', users.update);
 router.get('/users', users.getAll);
-router.post('/users/me', users.authenticatedUser);
-router.get('/users/settings', users.getSettings);
-router.put('/users/settings', users.updateSettings);
-
 /*
  * Installations routes
  */
