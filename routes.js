@@ -94,10 +94,12 @@ router.get('/anonymousposts/:id', anonymousposts.reportPost);
 router.get('/anonymousposts/:id/upvote', anonymousposts.upvote); // represented with 1,0,-1
 router.get('/anonymousposts/:id/downvote', anonymousposts.downvote); // represented with 1,0,-1
 router.post('/anonymousposts/:id/comments', anonymousposts.createComment);
-router.get('/anonymousposts/:id/comments/:id/upvote', anonymousposts.upvoteComment);
-router.get('/anonymousposts/:id/comments/:id/downvote', anonymousposts.downvoteComment);
-router.delete('/anonymousposts/:id/comments/:id', anonymousposts.deleteComment);
-router.post('/anonymousposts/:id/comments/:id', anonymousposts.reportComment);
+router.get('/anonymousposts/:postid/comments/:commentid/upvote', anonymousposts
+  .upvoteComment);
+router.get('/anonymousposts/:postid/comments/:commentid/downvote',
+  anonymousposts.downvoteComment);
+router.delete('/anonymousposts/:postid/comments/:commentid', anonymousposts.deleteComment);
+router.post('/anonymousposts/:postid/comments/:commentid', anonymousposts.reportComment);
 router.delete('/anonymousposts/:id', anonymousposts.delete);
 
 //Files routes
