@@ -82,7 +82,7 @@ exports.login = function(req, res) {
 				status: 500,
 				message: "Oops! Something went wrong!"
 			})
-		};
+		}
 		else {
 			if (!user) {
 				res.json({
