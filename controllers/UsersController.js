@@ -4,12 +4,14 @@ var nodemailer = require('nodemailer');
 //create new user
 exports.create = function(req, res) {
 	//Add validation
+	//TODO we need to auto assign intstitution based on email address of user
 	var user = new User({
 		username: req.body.username,
 		password: req.body.password,
 		email: req.body.email,
 		name: req.body.name
 	});
+	
 	user.save(function(err) {
 		if (err) {
 			res.send(err);

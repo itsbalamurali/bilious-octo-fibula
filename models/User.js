@@ -100,7 +100,4 @@ function expiresIn(numDays) {
 }
 
 userSchema.plugin(timestamps);
-//userSchema.hasMany('Post');
-//userSchema.hasMany('AnonymousPost');
-//userSchema.belongsTo('Institution', {through: 'institution'});
 module.exports = mongoose.model('User', userSchema);
