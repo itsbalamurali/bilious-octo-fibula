@@ -1,3 +1,4 @@
+/* global process */
 var jwt = require('jwt-simple');
 var validateUser = require('../lib/auth').validateUser;
 var config = require('../config')
@@ -6,8 +7,9 @@ var url = require('url');
 var redisURL = url.parse(config.redisURL);
 
 var client = redis.createClient(redisURL.port, redisURL.hostname);
-//client.auth(redisURL.auth.split(":")[1]);
-
+if(process.env.REDIS_URL){
+    client.auth(redisURL.auth.split(":")[1]);
+}
 module.exports.redisClient = client;
 
 module.exports.validateRequest = function(req, res, next) {
