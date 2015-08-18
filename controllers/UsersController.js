@@ -1,5 +1,6 @@
 var User = require('../models/User');
 var nodemailer = require('nodemailer');
+var client = require('../middlewares/validateRequest').redisClient
 
 //create new user
 exports.create = function(req, res) {
@@ -69,7 +70,21 @@ exports.login = function(req, res) {
 
 //logout user
 exports.logout = function(req, res) {
-
+	// Mostly the token should exist.
+	var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) ||
+		req.headers['x-access-token'];
+	if (token) {
+		delete req.user;
+		client.set(token, true)
+			// Expire in 60 days. Could be smaller but wont hurt
+		client.expire(token, 60 * 86400)
+		res.status = 200;
+		res.end()
+	} else {
+		// Something is Gravely wrong if no token
+		res.status = 500;
+		res.end();
+	}
 };
 
 //reset user password
