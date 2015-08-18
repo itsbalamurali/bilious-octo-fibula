@@ -7,8 +7,7 @@ module.exports = {
   database: process.env.MONGODB || process.env.MONGOLAB_URI ||
     'mongodb://localhost:27017/test',
 
-  redisURL: process.env.REDISURL || 'localhost',
-  redisPORT: process.env.REDISPORT || '6379',
+  redisURL: process.env.REDIS_URL || 'localhost:6379',
 
   mailgun: {
     user: process.env.MAILGUN_USER ||

@@ -2,7 +2,11 @@ var jwt = require('jwt-simple');
 var validateUser = require('../lib/auth').validateUser;
 var config = require('../config')
 var redis = require('redis');
-var client = redis.createClient(config.redisPORT, config.redisURL, {});
+var url = require('url');
+var redisURL = url.parse(config.redisURL);
+
+var client = redis.createClient(redisURL.port, redisURL.host);
+client.auth(redisURL.auth.split(":")[1]);
 
 module.exports.redisClient = client;
 
