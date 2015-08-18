@@ -50,11 +50,15 @@ exports.create = function(req, res) {
 
 //get latest posts
 exports.getLatest = function(req, res) {
-  AnonymousPost.find().sort('-date').limit(10).exec(function(err, users) {
+  AnonymousPost.find().sort('-date').limit(10).exec(function(err, anonPosts) {
     if (err) {
-      res.send(err);
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
     } else {
-      res.json(users);
+      res.json(anonPosts);
     }
   });
 };
@@ -64,7 +68,11 @@ exports.getHottest = function(req, res) {
   //(net upvotes) / (time passed). and sort
   AnonymousPost.find(function(err, users) {
     if (err) {
-      res.send(err);
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
     } else {
       res.json(users);
     }
@@ -75,7 +83,11 @@ exports.getHottest = function(req, res) {
 exports.getOne = function(req, res) {
   AnonymousPost.findById(req.params.id, function(err, anonymouspost) {
     if (err) {
-      res.send(err);
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
     } else {
       res.json(anonymouspost);
     }
@@ -86,9 +98,13 @@ exports.getOne = function(req, res) {
 exports.upvote = function(req, res) {
   AnonymousPost.findById(req.params.id, function(err, anonymouspost) {
     if (err) {
-      res.send(err);
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
     } else {
-      anonymouspost.upvote(user);
+      anonymouspost.upvote(req.user.id);
       res.json({
         vote: 'true'
       });
@@ -100,7 +116,11 @@ exports.upvote = function(req, res) {
 exports.downvote = function(req, res) {
   AnonymousPost.find(req.params.id, function(err, user) {
     if (err) {
-      res.send(err);
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
     } else {
       res.json(user);
     }
@@ -116,7 +136,11 @@ exports.createComment = function(req, res) {
   });
   comment.save(function(err) {
     if (err) {
-      res.send(err);
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
     } else {
       res.header('Status', 201);
       res.header('Location', req.hostname + '/anonymousposts/' +
@@ -144,7 +168,11 @@ exports.downvoteComment = function(req, res) {
 exports.deleteComment = function(req, res) {
   AnonymousPostComment.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
-      res.send(err);
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
     } else {
       res.json({
         message: 'comment deleted'
@@ -157,7 +185,11 @@ exports.deleteComment = function(req, res) {
 exports.delete = function(req, res) {
   AnonymousPost.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
-      res.send(err);
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
     } else {
       res.json({
         message: 'post deleted'
