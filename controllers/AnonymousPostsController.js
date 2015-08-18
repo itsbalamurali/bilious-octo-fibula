@@ -168,12 +168,52 @@ exports.createComment = function(req, res) {
 
 //to upvote a comment
 exports.upvoteComment = function(req, res) {
-
+  AnonymousPostComment.findById(req.params.commentid, function(err,
+    anonPostComment) {
+    if (err) {
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
+    } else if (!anonPostComment) {
+      res.status = 404;
+      res.json({
+        status: 404,
+        message: "Comment not Found"
+      })
+    } else {
+      anonPostComment.upvote(req.user.id)
+      res.json({
+        vote: true
+      })
+    }
+  })
 };
 
 //to downvote a comment
 exports.downvoteComment = function(req, res) {
-
+  AnonymousPostComment.findById(req.params.commentid, function(err,
+    anonPostComment) {
+    if (err) {
+      res.status = 500;
+      res.json({
+        status: 500,
+        message: "Oops! Something went wrong!"
+      })
+    } else if (!anonPostComment) {
+      res.status = 404;
+      res.json({
+        status: 404,
+        message: "Comment not Found"
+      })
+    } else {
+      anonPostComment.downvote(req.user.id)
+      res.json({
+        downvote: true
+      })
+    }
+  })
 };
 
 
