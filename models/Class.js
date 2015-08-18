@@ -2,17 +2,15 @@ var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
 
 //TODO this is to show schedule for individual user
-var scheduleSchema = new mongoose.Schema({
+var classSchema = new mongoose.Schema({
+	 name: {type:String},
 	 institution: {
     	type: mongoose.Schema.ObjectId,
     	ref: 'Institution'
   	 },
-	 class: {
-		type: mongoose.Schema.ObjectId,
-    	ref: 'Class'
-	 }
+	 start_date:{type:Date},
+	 end_date:{type:Date}
 });
 
-
-scheduleSchema.plugin(timestamps);
-module.exports = mongoose.model('Schedule', scheduleSchema);
+classSchema.plugin(timestamps);
+module.exports = mongoose.model('Schedule', classSchema);

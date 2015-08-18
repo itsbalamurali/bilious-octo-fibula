@@ -34,6 +34,10 @@ var userSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Institution'
   },
+  class: {
+    	type: mongoose.Schema.ObjectId,
+    	ref: 'Class'
+  	 },
   facebook: String,
   twitter: String,
   google: String,
@@ -100,7 +104,4 @@ function expiresIn(numDays) {
 }
 
 userSchema.plugin(timestamps);
-//userSchema.hasMany('Post');
-//userSchema.hasMany('AnonymousPost');
-//userSchema.belongsTo('Institution', {through: 'institution'});
 module.exports = mongoose.model('User', userSchema);

@@ -1,16 +1,23 @@
 var User = require('../models/User');
 var nodemailer = require('nodemailer');
 var client = require('../middlewares/validateRequest').redisClient
-
+var Institution = require('../models/Institution');
 //create new user
 exports.create = function(req, res) {
 	//Add validation
+	//TODO we need to auto assign intstitution based on email address of user
+	//var institutionId = Institution.find({}, {}, function(err, jobs) {
+	//if (err) throw err;
+	//res.send(jobs);
+	//});
+
 	var user = new User({
 		username: req.body.username,
 		password: req.body.password,
 		email: req.body.email,
 		name: req.body.name
 	});
+
 	user.save(function(err) {
 		if (err) {
 			res.send(err);
@@ -20,7 +27,7 @@ exports.create = function(req, res) {
 			res.json({
 				createdAt: user.createdAt,
 				objectId: user.id,
-				sessionToken: ""
+				sessionToken: user.genToken()
 			});
 		}
 	});
@@ -65,7 +72,40 @@ exports.update = function(req, res) {
 
 //login user
 exports.login = function(req, res) {
+	console.log(req.body)
+		// find the user
+	User.findOne({
+		username: req.body.username
+	}, function(err, user) {
+		if (err) throw err;
 
+		if (!user) {
+			res.json({
+				success: false,
+				message: 'Authentication failed. User not found.'
+			});
+		} else if (user) {
+
+			// check if password matches
+			user.comparePassword(req.body.password, function(err, isMatch) {
+				if (err) throw err;
+				if (!isMatch) {
+					res.json({
+						success: false,
+						message: 'Authentication failed. Wrong password.'
+					});
+				} else {
+					var token = user.genToken();
+					// return the information including token as JSON
+					res.json({
+						success: true,
+						message: 'Enjoy your token!',
+						token: token
+					});
+				}
+			});
+		}
+	});
 };
 
 //logout user
