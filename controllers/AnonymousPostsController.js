@@ -179,7 +179,10 @@ exports.downvoteComment = function(req, res) {
 
 //delete a comment
 exports.deleteComment = function(req, res) {
-  AnonymousPostComment.findByIdAndRemove(req.params.id, function(err) {
+  AnonymousPostComment.findOneAndRemove({
+    _id: req.params.id,
+    author: req.user.id
+  }, function(err) {
     if (err) {
       res.status = 500;
       res.json({
@@ -196,7 +199,10 @@ exports.deleteComment = function(req, res) {
 
 //delete a post
 exports.delete = function(req, res) {
-  AnonymousPost.findByIdAndRemove(req.params.id, function(err) {
+  AnonymousPost.findOneAndRemove({
+    _id: req.params.id,
+    author: req.user.id
+  }, function(err) {
     if (err) {
       res.status = 500;
       res.json({
