@@ -6,7 +6,7 @@ var url = require('url');
 var redisURL = url.parse(config.redisURL);
 
 var client = redis.createClient(redisURL.port, redisURL.host);
-client.auth(redisURL.auth.split(":")[1]);
+//client.auth(redisURL.auth.split(":")[1]);
 
 module.exports.redisClient = client;
 
