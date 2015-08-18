@@ -42,7 +42,7 @@ exports.update = function(req, res) {
 			res.status = 403
 			res.send({
 				status: 403,
-				message: "You are allowed to change some feilds!"
+				message: "You are not allowed to change some feilds!"
 			})
 		} else {
 			User.findOneAndUpdate({
@@ -72,38 +72,51 @@ exports.update = function(req, res) {
 
 //login user
 exports.login = function(req, res) {
-	console.log(req.body)
-		// find the user
+	// find the user
 	User.findOne({
 		username: req.body.username
 	}, function(err, user) {
-		if (err) throw err;
-
-		if (!user) {
+		if (err) {
+			res.status = 500;
 			res.json({
-				success: false,
-				message: 'Authentication failed. User not found.'
-			});
-		} else if (user) {
+				status: 500,
+				message: "Oops! Something went wrong!"
+			})
+		};
+		else {
+			if (!user) {
+				res.json({
+					success: false,
+					message: 'Authentication failed. User not found.'
+				});
+			} else if (user) {
 
-			// check if password matches
-			user.comparePassword(req.body.password, function(err, isMatch) {
-				if (err) throw err;
-				if (!isMatch) {
-					res.json({
-						success: false,
-						message: 'Authentication failed. Wrong password.'
-					});
-				} else {
-					var token = user.genToken();
-					// return the information including token as JSON
-					res.json({
-						success: true,
-						message: 'Enjoy your token!',
-						token: token
-					});
-				}
-			});
+				// check if password matches
+				user.comparePassword(req.body.password, function(err, isMatch) {
+					if (err) {
+						res.status = 500;
+						res.json({
+							status: 500,
+							message: "Oops! Something went wrong!"
+						})
+					} else {
+						if (!isMatch) {
+							res.json({
+								success: false,
+								message: 'Authentication failed. Wrong password.'
+							});
+						} else {
+							var token = user.genToken();
+							// return the information including token as JSON
+							res.json({
+								success: true,
+								message: 'Enjoy your token!',
+								token: token
+							});
+						}
+					}
+				});
+			}
 		}
 	});
 };

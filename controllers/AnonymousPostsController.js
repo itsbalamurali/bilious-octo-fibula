@@ -63,6 +63,8 @@ exports.getLatest = function(req, res) {
   });
 };
 
+
+// TODO
 //get hottest posts
 exports.getHottest = function(req, res) {
   //(net upvotes) / (time passed). and sort
