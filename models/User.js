@@ -34,6 +34,10 @@ var userSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Institution'
   },
+  class: {
+    	type: mongoose.Schema.ObjectId,
+    	ref: 'Class'
+  	 },
   facebook: String,
   twitter: String,
   google: String,

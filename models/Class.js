@@ -8,8 +8,9 @@ var classSchema = new mongoose.Schema({
     	type: mongoose.Schema.ObjectId,
     	ref: 'Institution'
   	 },
+	 start_date:{type:Date},
+	 end_date:{type:Date}
 });
-
 
 classSchema.plugin(timestamps);
 module.exports = mongoose.model('Schedule', classSchema);
