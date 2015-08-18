@@ -1,7 +1,12 @@
 var jwt = require('jwt-simple');
 var validateUser = require('../lib/auth').validateUser;
 var config = require('../config')
-module.exports = function(req, res, next) {
+var redis = require('redis');
+var client = redis.createClient(config.redisPORT, config.redisURL, {});
+
+module.exports.redisClient = client;
+
+module.exports.validateRequest = function(req, res, next) {
 
   // When performing a cross domain request, you will recieve
   // a preflighted request first. This is to check if our the app
@@ -10,31 +15,41 @@ module.exports = function(req, res, next) {
   // We skip the token outh for [OPTIONS] requests.
   //if(req.method == 'OPTIONS') next();
 
-  var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
+  var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) ||
+    req.headers['x-access-token'];
   // var key = (req.body && req.body.x_key) || (req.query && req.query.x_key) ||  req.headers['x-key'];
 
   if (token) {
-    try {
-      var decoded = jwt.decode(token, config.appsecret);
-      if (decoded.exp <= Date.now()) {
-        res.status(400);
+    client.exists(token, function(err, reply) {
+      if (reply === 1) {
+        res.status = 400;
         res.json({
           "status": 400,
           "message": "Token Expired"
         });
-        return;
+      } else {
+        try {
+          var decoded = jwt.decode(token, config.appsecret);
+          if (decoded.exp <= Date.now()) {
+            res.status(400);
+            res.json({
+              "status": 400,
+              "message": "Token Expired"
+            });
+            return;
+          }
+          // Authorize the user to see if s/he can access our resources
+          validateUser(decoded, req, res, next, handleUser);
+        } catch (err) {
+          res.status(500);
+          res.json({
+            "status": 500,
+            "message": "Oops something went wrong",
+            "error": err
+          });
+        }
       }
-
-      // Authorize the user to see if s/he can access our resources
-      validateUser(decoded, req, res, next, handleUser);
-    } catch (err) {
-      res.status(500);
-      res.json({
-        "status": 500,
-        "message": "Oops something went wrong",
-        "error": err
-      });
-    }
+    })
   } else {
     res.status(401);
     res.json({
