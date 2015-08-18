@@ -64,12 +64,12 @@ exports.update = function(req, res) {
 
 //login user
 exports.login = function(req, res) {
-  
+
 };
 
 //logout user
 exports.logout = function(req, res) {
-  
+
 };
 
 //reset user password
@@ -122,6 +122,12 @@ exports.authenticatedUser = function(req, res) {
 			} else {
 				res.json(user)
 			}
+		})
+	} else {
+		res.status = 401;
+		res.json({
+			"status": 401,
+			"message": "Not Authorised"
 		})
 	}
 };
