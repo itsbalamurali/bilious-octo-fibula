@@ -114,7 +114,7 @@ exports.upvote = function(req, res) {
 
 //downvote a post
 exports.downvote = function(req, res) {
-  AnonymousPost.find(req.params.id, function(err, user) {
+  AnonymousPost.find(req.params.id, function(err, anonPost) {
     if (err) {
       res.status = 500;
       res.json({
@@ -122,35 +122,46 @@ exports.downvote = function(req, res) {
         message: "Oops! Something went wrong!"
       })
     } else {
-      res.json(user);
+      anonymouspost.downvote(req.user.id);
+      res.json({
+        downvote: 'true'
+      });
     }
   });
 };
 
 //to create a comment
 exports.createComment = function(req, res) {
-  var comment = new AnonymousPostComment({
-    message: req.body.message,
-    author: req.body.author,
-    location: req.body.location
-  });
-  comment.save(function(err) {
-    if (err) {
-      res.status = 500;
-      res.json({
-        status: 500,
-        message: "Oops! Something went wrong!"
-      })
-    } else {
-      res.header('Status', 201);
-      res.header('Location', req.hostname + '/anonymousposts/' +
-        anonymouspost.id);
-      res.json({
-        createdAt: comment.createdAt,
-        objectId: comment.id
-      });
-    }
-  });
+  if (req.user && req.body.message) {
+    var comment = new AnonymousPostComment({
+      message: req.body.message,
+      author: req.user.id,
+      location: req.body.location
+    });
+    comment.save(function(err) {
+      if (err) {
+        res.status = 500;
+        res.json({
+          status: 500,
+          message: "Oops! Something went wrong!"
+        })
+      } else {
+        res.header('Status', 201);
+        res.header('Location', req.hostname + '/anonymousposts/' +
+          anonymouspost.id);
+        res.json({
+          createdAt: comment.createdAt,
+          objectId: comment.id
+        });
+      }
+    });
+  } else {
+    res.status = 400;
+    res.json({
+      status: 400,
+      message: "Bad request"
+    })
+  }
 };
 
 //to upvote a comment
