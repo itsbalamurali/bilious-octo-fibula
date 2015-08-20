@@ -41,9 +41,9 @@ app.all('/*', function(req, res, next) {
 // Only the requests that start with /api/* will be checked for the token.
 // Any URL's that do not follow the below pattern should be avoided unless you
 // are sure that authentication is not needed
-app.all('/api/*', require('./middlewares/validateRequest').validateRequest);
+//app.all('/api/*', require('./middlewares/validateRequest').validateRequest);
 
-app.use('/api/v1', routes);
+app.use('/api/1', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
