@@ -15,7 +15,7 @@ exports.create = function(req, res) {
       res.header('Location',req.hostname+'/feed/'+post.id);
       res.json({ 
           createdAt: post.createdAt,
-          objectId: post.id,
+          objectId: post.id
         });
    }
   });

@@ -3,14 +3,14 @@ var timestamps = require('mongoose-timestamp');
 
 //TODO this is to show schedule for individual user
 var scheduleSchema = new mongoose.Schema({
-	 institution: {
-    	type: mongoose.Schema.ObjectId,
-    	ref: 'Institution'
-  	 },
-	 class: {
-		type: mongoose.Schema.ObjectId,
-    	ref: 'Class'
-	 }
+    institution: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Institution'
+    },
+    class: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Class'
+    }
 });
 
 

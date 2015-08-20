@@ -1,5 +1,5 @@
 var AnonymousPost = require('../models/AnonymousPost');
-var AnonymousPostComment = require('../models/AnonymousPostComment');
+var AnonymousPostComment = require('../models/AnonymousPost');
 var User = require('../models/User');
 var config = require('../config.js');
 

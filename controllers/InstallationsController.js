@@ -12,7 +12,7 @@ exports.create = function(req, res) {
       res.header('Location',req.hostname+'/installations/'+installation.id);
       res.json({ 
           createdAt: installation.createdAt,
-          objectId: installation.id,
+          objectId: installation.id
         });
    }
   });

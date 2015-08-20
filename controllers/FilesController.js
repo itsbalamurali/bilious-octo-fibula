@@ -11,7 +11,6 @@ var storageClient = pkgcloud.createClient({
     region: config.s3.region // region
   });
   
-  
 //upload a file
 exports.upload = function(req, res) {
 
