@@ -78,16 +78,15 @@ router.post('/notifications/:id', validateRequest, notifications.update); //mark
 /*
  * Anonymous Posts Routes
  */
-router.get('/anonymousposts', validateRequest, anonymousposts.getLatest); //latest posts
-router.post('/anonymousposts', validateRequest, anonymousposts.create); //latest posts
-router.get('/anonymousposts/hot', validateRequest, anonymousposts.getHottest); //latest posts
+router.get('/anonymousposts', validateRequest, anonymousposts.getLatest);
+router.post('/anonymousposts', validateRequest, anonymousposts.create);
+router.get('/anonymousposts/hot', validateRequest, anonymousposts.getHottest);
 router.get('/anonymousposts/:id', validateRequest, anonymousposts.getOne);
 router.get('/anonymousposts/:id', validateRequest, anonymousposts.reportPost);
-router.get('/anonymousposts/:id/upvote', validateRequest, anonymousposts.upvote); // represented with 1,0,-1
-router.get('/anonymousposts/:id/downvote', validateRequest, anonymousposts.downvote); // represented with 1,0,-1
+router.get('/anonymousposts/:id/upvote', validateRequest, anonymousposts.upvote);
+router.get('/anonymousposts/:id/downvote', validateRequest, anonymousposts.downvote);
 router.post('/anonymousposts/:id/comments', validateRequest, anonymousposts.createComment);
-router.get('/anonymousposts/:postid/comments/:commentid/upvote', validateRequest, anonymousposts
-    .upvoteComment);
+router.get('/anonymousposts/:postid/comments/:commentid/upvote', validateRequest, anonymousposts.upvoteComment);
 router.get('/anonymousposts/:postid/comments/:commentid/downvote', validateRequest, anonymousposts.downvoteComment);
 router.delete('/anonymousposts/:postid/comments/:commentid', validateRequest, anonymousposts.deleteComment);
 router.post('/anonymousposts/:postid/comments/:commentid', validateRequest, anonymousposts.reportComment);

@@ -59,7 +59,8 @@ var userSchema = new mongoose.Schema({
 
     resetPasswordToken: String,
     resetPasswordExpires: Date,
-    role: String
+    role: String,
+    account_status: String //active or suspended or tobeverified
 });
 
 /**

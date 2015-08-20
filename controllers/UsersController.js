@@ -6,15 +6,20 @@ var async = require('async');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var config = require('../config');
+var moment = require('moment');
+
 //create new user
 exports.create = function (req, res) {
 	//Add validation
 	//TODO we need to auto assign intstitution based on email address of user
+    var dateofbirth = moment(req.body.dob);
 	var user = new User({
 		username: req.body.username,
 		password: req.body.password,
 		email: req.body.email,
-		name: req.body.name
+		firstname: req.body.firstname,
+		lastname: req.body.lastname,
+		dob: dateofbirth
 	});
 
 	user.save(function (err) {
