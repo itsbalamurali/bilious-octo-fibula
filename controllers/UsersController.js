@@ -11,15 +11,20 @@ var moment = require('moment');
 //create new user
 exports.create = function (req, res) {
 	//Add validation
-	//TODO we need to auto assign intstitution based on email address of user
     var dateofbirth = moment(req.body.dob);
+    // get institution id
+    /*
+    var institution_id = Institution.find()
+        req.body.institution_code;
+    */
 	var user = new User({
 		username: req.body.username,
 		password: req.body.password,
 		email: req.body.email,
 		firstname: req.body.firstname,
 		lastname: req.body.lastname,
-		dob: dateofbirth
+		dob: dateofbirth,
+        institution: institution_id
 	});
 
 	user.save(function (err) {
@@ -128,8 +133,7 @@ exports.login = function (req, res) {
 //logout user
 exports.logout = function (req, res) {
 	// Mostly the token should exist.
-	var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) ||
-		req.headers['x-access-token'];
+	var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
 	if (token) {
 		delete req.user;
 		client.set(token, true)
