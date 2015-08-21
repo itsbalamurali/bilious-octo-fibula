@@ -1,4 +1,6 @@
 var User = require('./models/User');
+var Institution = require('./models/Institution');
+var Class = require('./models/Class');
 var Installation = require('./models/Installation');
 var AnonymousPost = require('./models/AnonymousPost');
 var AnonymousPostComment = require('./models/AnonymousPost');
@@ -15,7 +17,47 @@ console.log("LOL");
 // for each post five comments and two likes and two anonymous posts with random votes
 
 //Generate Users
-//for(var i=0; i < 20; i++){
+for(var i=0; i < 20; i++){
+    lolclg = new Institution();
+    lolclg.name = "";
+    lolclg.email = "";
+    lolclg.added_by ="";
+    lolclg.phone="";
+    lolclg.location="";
+    lolclg.institution_code="";
+    lolclg.save(function(err) {
+        console.log(lolclg);
+        for(var i=0; i<5; i++){
+            lolclass = new Class();
+            lolclass.name = "";
+            lolclass.institution=lolclg.id;
+            lolclass.start_date="";
+            lolclass.end_date="";
+            lolclass.save(function(err) {
+                console.log(lolclass);
+                for(var i=0; i<5; i++) {
+                    lolstudent = new User();
+                    lolstudent.username="";
+                    lolstudent.email="";
+                    lolstudent.password="lolpassword";
+                    lolstudent.dob="";
+                    lolstudent.firstname="";
+                    lolstudent.lastname="";
+                    lolstudent.class=lolclass.id;
+                    lolstudent.institution=lolclg.id;
+                    lolstudent.mobileno="";
+                    lolstudent.gender="";
+                    lolstudent.picture="";
+                    lolstudent.role="";
+                    lolstudent.save(function(err, student) {
+                        console.log(lolstudent);
+                        console.log(student.genToken());
+                    })
+                }
+                })
+        }
+    });
+/*
     User.findOne({
         username: "gouthamve"
     }).exec(function(err, user) {
@@ -34,7 +76,17 @@ console.log("LOL");
             console.log(user.genToken())
         }
     });
-//}
+*/
+    anonpost = new AnonymousPost();
+    anonpost.message = "";
+    anonpost.author = "";
+    anonpost.institution = "gouthamve@gmail.com";
+    anonpost.handle = "admin";
+    anonpost.location = [89,98];
+    anonpost.save(function(err, anonpost) {
+        console.log(anonpost);
+    })
+}
 
 
 /*
