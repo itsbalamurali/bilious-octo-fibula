@@ -6,104 +6,113 @@ var AnonymousPost = require('./models/AnonymousPost');
 var AnonymousPostComment = require('./models/AnonymousPost');
 var Post = require('./models/Post');
 var mongoose = require('mongoose');
-var faker = require('Faker');
+var faker = require('faker');
 
 mongoose.connect('localhost/test');
-
-console.log("LOL");
 
 
 // generate five colleges for each college generate 5 classes for each class five students for student five posts
 // for each post five comments and two likes and two anonymous posts with random votes
 
-//Generate Users
-for(var i=0; i < 20; i++){
-    lolclg = new Institution();
-    lolclg.name = "";
-    lolclg.email = "";
-    lolclg.added_by ="";
-    lolclg.phone="";
-    lolclg.location="";
-    lolclg.institution_code="";
-    lolclg.save(function(err) {
-        console.log(lolclg);
-        for(var i=0; i<5; i++){
-            lolclass = new Class();
-            lolclass.name = "";
-            lolclass.institution=lolclg.id;
-            lolclass.start_date="";
-            lolclass.end_date="";
-            lolclass.save(function(err) {
-                console.log(lolclass);
-                for(var i=0; i<5; i++) {
-                    lolstudent = new User();
-                    lolstudent.username="";
-                    lolstudent.email="";
-                    lolstudent.password="lolpassword";
-                    lolstudent.dob="";
-                    lolstudent.firstname="";
-                    lolstudent.lastname="";
-                    lolstudent.class=lolclass.id;
-                    lolstudent.institution=lolclg.id;
-                    lolstudent.mobileno="";
-                    lolstudent.gender="";
-                    lolstudent.picture="";
-                    lolstudent.role="";
-                    lolstudent.save(function(err, student) {
-                        console.log(lolstudent);
-                        console.log(student.genToken());
-                    })
-                }
-                })
-        }
-    });
-/*
-    User.findOne({
-        username: "gouthamve"
-    }).exec(function(err, user) {
-        if (!user) {
-            console.log('=======================================\n');
-            newUser = new User();
-            newUser.username = "gouthamve";
-            newUser.password = "thisisadumbpassword";
-            newUser.email = "gouthamve@gmail.com";
-            newUser.role = "admin";
-            newUser.save(function(err, goutham) {
-                console.log(newUser);
-                console.log(goutham.genToken());
-            })
-        } else {
-            console.log(user.genToken())
-        }
-    });
-*/
-    anonpost = new AnonymousPost();
-    anonpost.message = "";
-    anonpost.author = "";
-    anonpost.institution = "gouthamve@gmail.com";
-    anonpost.handle = "admin";
-    anonpost.location = [89,98];
-    anonpost.save(function(err, anonpost) {
-        console.log(anonpost);
-    })
+//Generate Colleges
+
+var generateInstis = function() {
+	for (i = 0; i < 5; i++) {
+		createInsti();
+	}
 }
 
+var createInsti = function() {
+	var newInsti = new Institution({
+		name: faker.company.companyName(),
+		location: [faker.address.longitude(), faker.address.latitude()],
+		institution_code: faker.random.uuid(),
+		email: faker.internet.email(),
+		phone: faker.phone.phoneNumberFormat()
+	})
 
-/*
-User.findOne({
-	username: "gouthamve"
-}).exec(function(err, user) {
-	if (!user) {
-		newUser = new User();
-		newUser.username = "gouthamve";
-		newUser.password = "thisisadumbpassword";
-		newUser.email = "gouthamve@gmail.com";
-		newUser.role = "admin";
-		newUser.save(function(err, goutham) {
-			console.log(goutham.genToken())
-		})
-	} else {
-		console.log(user.genToken())
+	newInsti.save(function(err) {
+		if (err) {
+			console.log(err);
+		} else {
+			generateClasses(insti);
+		}
+	})
+}
+
+var generateClasses = function(institute) {
+	var newClass = new Class({
+		institution: institute.id,
+	})
+
+	for (i = 0; i < 5; i++) {
+		createClass(newClass);
 	}
-});
-*/
+}
+
+var createClass = function(newClass) {
+	newClass.name = faker.company.bs();
+	newClass.start_date = faker.date.past();
+	newClass.end_date = faker.date.future();
+
+	newClass.save(function(err) {
+		if (err) {
+			console.log(err);
+		} else {
+			generateStudents(newClass);
+		}
+	})
+}
+
+var generateStudents = function(Nclass) {
+	newStudent = new User({
+		institution: Nclass.institution,
+		class: Nclass.id
+	});
+
+	for (i = 0; i < 5; i++) {
+		createStudent(newStudent);
+	}
+}
+
+var createStudent = function(stud) {
+	stud.username = faker.internet.userName();
+	stud.password = "lolpassword";
+	stud.email = faker.internet.email();
+	stud.firstname = faker.name.firstName();
+	stud.lastname = faker.name.lastName();
+	stud.mobileno = faker.phone.phoneNumberFormat();
+	stud, dob = faker.date.past();
+	student.gender = faker.random.boolean() ? "male" : "female";
+	student.picture = faker.image.avatar();
+	stud.role = "student";
+	stud.account_status = "active";
+
+	stud.save(function(err) {
+		if (err) {
+			console.log(err)
+		} else {
+			generatePosts(stud)
+		}
+	})
+}
+
+var generatePosts = function(stud) {
+	var newPost = new Post({
+		author: stud.id,
+		institution: stud.institute,
+		action_type: "update_status"
+	});
+
+	for (i = 0; i < 5; i++) {
+		createPost(newPost);
+	}
+}
+
+var createPost = function(post) {
+	post.message = faker.lorem.sentence();
+	post.location = [faker.address.longitude(), faker.address.latitude()];
+	post.save();
+}
+
+generateInstis();
