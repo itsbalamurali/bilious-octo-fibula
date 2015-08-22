@@ -4,20 +4,46 @@ var voting = require('mongoose-voting');
 
 
 var anonymouspostcommentSchema = new mongoose.Schema({
-    comment: {type: String, required: true},
-    author: {type: mongoose.Schema.ObjectId, ref: 'User'},
-    messageid: {type: mongoose.Schema.ObjectId, ref: 'AnonymousPost'},
-    location: {type: [Number], index: '2d'},
+  comment: {
+    type: String,
+    required: true
+  },
+  author: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  },
+  messageid: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'AnonymousPost'
+  },
+  location: {
+    type: [Number],
+    index: '2d'
+  },
 });
 
 
 var anonymouspostSchema = new mongoose.Schema({
-    message: {type: String, required: true},
-    author: {type: mongoose.Schema.ObjectId, ref: 'User'},
-    institution: {type: mongoose.Schema.ObjectId, ref: 'Institution'},
-    handle: {type: String},
-    location: {type: [Number], index: '2d'},
-    comments: [anonymouspostcommentSchema]
+  message: {
+    type: String,
+    required: true
+  },
+  author: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  },
+  institution: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Institution'
+  },
+  handle: {
+    type: String
+  },
+  location: {
+    type: [Number],
+    index: '2d'
+  },
+  comments: [anonymouspostcommentSchema]
 });
 
 anonymouspostSchema.plugin(timestamps); //created and updated timestamps
@@ -28,5 +54,7 @@ anonymouspostcommentSchema.plugin(voting); //for voting
 
 //relations
 //anonymouspostSchema.hasMany('AnonymousPostComments');
-module.exports = mongoose.model('AnonymousPost', anonymouspostSchema);
-module.exports = mongoose.model('AnonymousPostComment', anonymouspostcommentSchema);
+module.exports.AnonymousPost = mongoose.model('AnonymousPost',
+  anonymouspostSchema);
+module.exports.AnonymousPostComment = mongoose.model('AnonymousPostComment',
+  anonymouspostcommentSchema);

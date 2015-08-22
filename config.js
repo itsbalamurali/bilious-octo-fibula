@@ -7,7 +7,7 @@ module.exports = {
   database: process.env.MONGODB || process.env.MONGOLAB_URI ||
     'mongodb://localhost:27017/test',
 
-  redisURL: process.env.REDIS_URL || 'localhost:6379',
+  redisURL: process.env.REDIS_URL || 'http://localhost:6379',
 
   smtp: {
     host: process.env.MAILGUN_SMTP_SERVER || 'smtp.mailgun.org',
